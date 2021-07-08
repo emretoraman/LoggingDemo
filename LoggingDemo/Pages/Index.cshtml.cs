@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LoggingDemo.Pages
 {
@@ -22,6 +23,17 @@ namespace LoggingDemo.Pages
             _logger.LogWarning("This is a warning log");
             _logger.LogError("This is an error log");
             _logger.LogCritical("This is a critical log");
+
+            _logger.LogInformation("This is an information at {Time}", DateTime.UtcNow);
+
+            try
+            {
+                throw new InvalidOperationException("This is invalid operation exception");
+            }
+            catch (Exception exception)
+            {
+                _logger.LogWarning(exception, "This is a warning log");
+            }
         }
     }
 
