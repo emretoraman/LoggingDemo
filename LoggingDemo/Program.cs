@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LoggingDemo
 {
@@ -8,7 +9,10 @@ namespace LoggingDemo
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IHost host = CreateHostBuilder(args).Build();
+            ILogger logger = host.Services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("The application has started");
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)
